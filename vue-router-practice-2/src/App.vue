@@ -4,10 +4,8 @@ import NavBar from "./components/NavBar.vue";
 </script>
 
 <template>
-
-
   <div>
-<NavBar/>
+    <NavBar />
 
     <router-view v-slot="{ Component, route }">
       <transition name="fade" mode="out-in">
@@ -27,7 +25,7 @@ import NavBar from "./components/NavBar.vue";
 .fade-move,
 .fade-enter-active,
 .fade-leave-active {
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 .fade-enter-from,

@@ -1,12 +1,14 @@
 <script setup>
-import axios from "axios";
 import { onBeforeMount, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+import PulseLoader from "vue-spinner/src/PulseLoader.vue";
+import axios from "axios";
 
 const route = useRoute();
 const postId = route.params.id;
 
 const post = ref({});
+const isLoading = ref(true);
 
 onBeforeMount(async () => {
   try {
@@ -17,14 +19,22 @@ onBeforeMount(async () => {
     post.value = response.data;
   } catch (error) {
     console.error("Error loading post", error);
+  } finally {
+    isLoading.value = false;
   }
 });
 </script>
 
 <template>
-  <ul>
-    <li v-for="(value, key) in post">{{ key }}: {{ value }}</li>
-  </ul>
+  <section v-if="!isLoading">
+    <ul>
+      <li v-for="(value, key) in post">{{ key }}: {{ value }}</li>
+    </ul>
+  </section>
+
+  <div v-else>
+    <PulseLoader />
+  </div>
 </template>
 
 <style scoped></style>
